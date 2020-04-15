@@ -2,19 +2,15 @@
 #include <iostream>
 #include <chrono>
 
-unsigned static int timer_id_count = 0;
+unsigned static int timer_id = 0;
 #define chrono std::chrono
 
 class Timer {
 private:
 	
 public:
-	unsigned int function_id = 0;
 
-	explicit Timer() {
-		timer_id_count++;
-		function_id+= timer_id_count;
-	}
+	explicit Timer() { ++timer_id; }
 
 	/* This will time any function if provided a pointer of the function and its arguments if any.
 	   Ex:
@@ -39,7 +35,10 @@ public:
 
 };
 
-
+/* This can be used for snippets of code that surpass the use of time_function()
+   Do not use for functions, results are slower due to excessive function calling.
+   time_function() is optimized for functions.
+*/
 auto start_timer() {
 	return chrono::high_resolution_clock::now();
 
